@@ -5,7 +5,7 @@ import PageAnimation from "../common/page-animation.jsx";
 
 const UserAuthFormPage = ({ type }) => {
     return(
-        <PageAnimation>
+        <PageAnimation keyValue={type}>
             <section className="h-cover flex items-center justify-center">
                 <form action="" className="w-[80%] max-w-[400px]">
                     <h1 className="text-4xl font-noto capitalize text-center mb-24">
@@ -27,7 +27,7 @@ const UserAuthFormPage = ({ type }) => {
                         Use Google
                     </button>
                     {
-                        type === "sign-in" ? <p className="mt-6 text-dark-grey text-xl text-center"> Don't have an account yet? <Link to="/signup" className="underline text-black text-xl ml-1">Join Us</Link></p> : <p className="mt-6 text-dark-grey text-xl text-center"> Already a member? <Link to="/signup" className="underline text-black text-xl ml-1">Sign in here</Link></p>
+                        type === "sign-in" ? <p className="mt-6 text-dark-grey text-xl text-center"> Don't have an account yet? <Link to="/signup" className="underline text-black text-xl ml-1">Join Us</Link></p> : <p className="mt-6 text-dark-grey text-xl text-center"> Already a member? <Link to="/signin" className="underline text-black text-xl ml-1">Sign in here</Link></p>
                     }
                 </form>
             </section>

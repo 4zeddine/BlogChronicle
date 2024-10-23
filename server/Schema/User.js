@@ -6,11 +6,11 @@ let profile_imgs_collections_list = ["notionists-neutral", "adventurer-neutral",
 const userSchema = mongoose.Schema({
 
     personal_info: {
-        fullname: {
+        name: {
             type: String,
             lowercase: true,
             required: true,
-            minlength: [3, 'fullname must be 3 letters long'],
+            minlength: [3, 'Name must exceed 2 letters'],
         },
         email: {
             type: String,
@@ -21,19 +21,19 @@ const userSchema = mongoose.Schema({
         password: String,
         username: {
             type: String,
-            minlength: [3, 'Username must be 3 letters long'],
+            minlength: [3, 'Username must exceed 2 letters'],
             unique: true,
         },
         bio: {
             type: String,
-            maxlength: [200, 'Bio should not be more than 200'],
+            maxlength: [200, 'Bio should not pass 200 characters'],
             default: "",
         },
         profile_img: {
             type: String,
             default: () => {
                 return `https://api.dicebear.com/6.x/${profile_imgs_collections_list[Math.floor(Math.random() * profile_imgs_collections_list.length)]}/svg?seed=${profile_imgs_name_list[Math.floor(Math.random() * profile_imgs_name_list.length)]}`
-            } 
+            }
         },
     },
     social_links: {
@@ -82,11 +82,11 @@ const userSchema = mongoose.Schema({
         default: [],
     }
 
-}, 
-{ 
+},
+{
     timestamps: {
         createdAt: 'joinedAt'
-    } 
+    }
 
 })
 

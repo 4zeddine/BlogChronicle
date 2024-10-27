@@ -1,18 +1,26 @@
 import InputComponent from "../components/input.component.jsx";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import googleIcon from "../imgs/google.png";
 import PageAnimation from "../common/page-animation.jsx";
 import {toast, Toaster} from 'react-hot-toast';
 import axios from "axios";
+import {storeInSession} from "../common/session.jsx";
+import {useContext} from "react";
+import {UserContext} from "../App.jsx";
 
 
 const UserAuthFormPage = ({ type }) => {
+
+    const { userAuth, setUserAuth } = useContext(UserContext);
+    const { accessToken } = userAuth || {}; // Ensure userAuth is defined before destructuring accessToken
+    console.log("Access token:", accessToken);
 
     const userAuthServerHandle = (serverRoute, formData) =>{
         console.log("Sending data to server:", formData);
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
             .then(({data}) => {
-                console.log(data);
+                storeInSession("user", JSON.stringify(data));
+                setUserAuth(data);
             }).catch(({ response }) => {
                 toast.error(response.data.error);
         });
@@ -50,6 +58,8 @@ const UserAuthFormPage = ({ type }) => {
     }
 
     return(
+        accessToken ? <Navigate to ="/"/>
+            :
         <PageAnimation keyValue={type}>
             <section className="h-cover flex items-center justify-center">
                 <Toaster />
